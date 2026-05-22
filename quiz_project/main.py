@@ -4,13 +4,13 @@ app = create_app()
 
 
 
-#from db.connection import get_connection
-# from db.schema import create_tables
-# from scripts.seed import seed_questions, seed_quiz, seed_quiz_content
+from db.connection import get_connection
+from db.schema import create_tables
+from scripts.seed import seed_questions, seed_quiz, seed_quiz_content
 # from db.query import get_questions_by_quiz_and_type
 # from db.query import get_next_question
 
-#def main():
+def main():
     # current_id = 0
     # soal_ke = 0
 
@@ -48,16 +48,17 @@ app = create_app()
 
 
     # create_tables()
-    #print("Tables created!")
-    #seed_questions()
-    #seed_quiz()
-    #seed_quiz_content()
-    #print("Data seeded!")
+    # print("Tables created!")
+    seed_questions()
+    seed_quiz()
+    seed_quiz_content()
+    print("Data seeded!")
     # conn = get_connection()
     # print("Database Connected:", conn)
     # conn.close()
 
 if __name__ == "__main__":
     app.run(debug=True)
+    # main()
 
 
