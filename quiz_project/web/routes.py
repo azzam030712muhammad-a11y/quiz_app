@@ -1,5 +1,5 @@
 from db.query import get_all_quizzes, get_next_question
-from flask import redirect, url_for, session, request
+from flask import redirect, url_for, session, request, render_template
 
 
 
@@ -8,14 +8,15 @@ def register_routes(app):
     @app.route("/")
     def home():
         quizzes = get_all_quizzes()
+        return render_template("index.html", quizzes=quizzes)
 
-        html = "<h1>Quiz list</h1><ul>"
+        # html = "<h1>Quiz list</h1><ul>"
 
-        for q in quizzes:
-            html += f"<li><a href='/start/{q['id']}'>{q['name']}</a></li>"
+        # for q in quizzes:
+        #     html += f"<li><a href='/start/{q['id']}'>{q['name']}</a></li>"
 
-        html += "</ul>"
-        return html
+        # html += "</ul>"
+        # return html
     
 
     @app.route("/start/<int:quiz_id>")
@@ -56,34 +57,35 @@ def register_routes(app):
 
         feedback = session.pop("feedback", None)
         
-        html = ""
+        # html = ""
 
-        if feedback:
-            html += f"<p><b>{feedback}</b></p><hr>"
+        # if feedback:
+        #     html += f"<p><b>{feedback}</b></p><hr>"
             
-        html += f"""
-        <h2>{q['question']}</h2>
-        <p>Skor sekarang: {session.get('score', 0)}</p>
+        # html += f"""
+        # <h2>{q['question']}</h2>
+        # <p>Skor sekarang: {session.get('score', 0)}</p>
 
         
-        <form method='POST'>
-            <input type='radio' name='answer' value='{q['answer']}' > {q['answer']}<br>
-            <input type='radio' name='answer' value='{q['wrong1']}' > {q['wrong1']}<br>
-            <input type='radio' name='answer' value='{q['wrong2']}' > {q['wrong2']}<br>
-            <input type='radio' name='answer' value='{q['wrong3']}' > {q['wrong3']}<br><br>
-            <button type='submit'>Submit</button>
-        </form>
-        """
-        return html
+        # <form method='POST'>
+        #     <input type='radio' name='answer' value='{q['answer']}' > {q['answer']}<br>
+        #     <input type='radio' name='answer' value='{q['wrong1']}' > {q['wrong1']}<br>
+        #     <input type='radio' name='answer' value='{q['wrong2']}' > {q['wrong2']}<br>
+        #     <input type='radio' name='answer' value='{q['wrong3']}' > {q['wrong3']}<br><br>
+        #     <button type='submit'>Submit</button>
+        # </form>
+        # """
+        return render_template("question.html", question=q, feedback=feedback)
 
     @app.route("/result")
     def result():
         score = session.get('score', 0)
+        return render_template("result.html", score=score)
 
-        html = f"""
-        <h1>Quiz Selesai!</h1>
-        <h2>Skor Anda: {score}</h2>
-        <a href='/'>Main lagi</a>
-        """
-        return html
+        # html = f"""
+        # <h1>Quiz Selesai!</h1>
+        # <h2>Skor Anda: {score}</h2>
+        # <a href='/'>Main lagi</a>
+        # """
+        # return html
 

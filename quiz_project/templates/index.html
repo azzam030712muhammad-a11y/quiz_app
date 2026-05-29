@@ -1,0 +1,22 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<hmtl>
+<head>
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Quiz App</h1>
+
+        <ul>
+            {% for quiz in quizzes %}
+                <li>
+                    <a class="quiz-link" href="/start/{{ quiz.id }}">{{ quiz.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</hmtl>
